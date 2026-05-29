@@ -1,0 +1,23 @@
+.navbar {
+  background-color: #333;
+  padding: 10px;
+}
+
+.navbar a {
+  color: white;
+  padding: 10px 15px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.navbar a.active {
+  background-color: #04AA6D;
+}
+
+.navbar a:hover {
+  background-color: #555;
+}
+
+.container {
+  margin: 20px;
+}

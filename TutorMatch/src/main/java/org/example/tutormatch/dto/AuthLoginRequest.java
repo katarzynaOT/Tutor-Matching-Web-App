@@ -1,16 +1,19 @@
 package org.example.tutormatch.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-
-import jakarta.validation.constraints.Email;
 
 @Getter
 @Setter
 public class AuthLoginRequest {
 
     @Email
+    @NotBlank
     private String email;
 
+    @NotBlank
     private String password;
 }

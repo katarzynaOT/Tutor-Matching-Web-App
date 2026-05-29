@@ -1,11 +1,12 @@
 package org.example.tutormatch.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.tutormatch.dto.AuthLoginRequest;
 import org.example.tutormatch.dto.AuthRegisterRequest;
 import org.example.tutormatch.dto.AuthResponse;
-import org.example.tutormatch.entity.User;
-import org.example.tutormatch.repository.UserRepository;
+import org.example.tutormatch.entity.*;
+import org.example.tutormatch.repository.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.example.tutormatch.util.JwtUtil;
@@ -15,8 +16,11 @@ import org.example.tutormatch.util.JwtUtil;
 public class AuthService {
 
     private final UserRepository userRepository;
+    private final StudentRepository studentRepository;
+    private final TutorRepository tutorRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public AuthResponse register(AuthRegisterRequest dto) {
 
         if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
@@ -30,6 +34,19 @@ public class AuthService {
         user.setRole(dto.getRole());
 
         User saved = userRepository.save(user);
+
+        if (dto.getRole() == Role.STUDENT) {
+            Student student = new Student();
+            student.setUser(saved);
+            student.setUniversity("unknown");
+            studentRepository.save(student);
+        } else {
+            Tutor tutor = new Tutor();
+            tutor.setUser(saved);
+            tutor.setBio("-");
+            tutor.setSubject("-");
+            tutorRepository.save(tutor);
+        }
 
         String token = JwtUtil.generateToken(saved.getEmail());
         return new AuthResponse(

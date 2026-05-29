@@ -1,9 +1,44 @@
-<div *ngIf="message" style="margin-bottom: 1em; color: darkgreen;">{{ message }}</div>
+<div *ngIf="message" class="message">
+  {{ message }}
+</div>
 
-<form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-  <input name="name" [(ngModel)]="model.name" required placeholder="Imię" />
-  <input name="email" [(ngModel)]="model.email" required type="email" placeholder="Email" />
-  <input name="password" [(ngModel)]="model.password" required type="password" placeholder="Hasło" />
-  <input name="role" [(ngModel)]="model.role" required placeholder="Rola (STUDENT/TUTOR)" />
-  <button type="submit">Zarejestruj</button>
+<form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="box">
+
+  <h2>Register</h2>
+
+  <input
+    name="name"
+    [(ngModel)]="model.name"
+    required
+    placeholder="name (& surname)"
+  />
+
+  <input
+    name="email"
+    [(ngModel)]="model.email"
+    required
+    type="email"
+    placeholder="email"
+  />
+
+  <input
+    name="password"
+    [(ngModel)]="model.password"
+    required
+    type="password"
+    placeholder="password (min. 6)"
+  />
+
+  <select
+    name="role"
+    [(ngModel)]="model.role"
+    required
+  >
+    <option value="" disabled selected>role</option>
+    <option value="STUDENT">STUDENT</option>
+    <option value="TUTOR">TUTOR</option>
+  </select>
+
+  <button type="submit">Register</button>
+
 </form>

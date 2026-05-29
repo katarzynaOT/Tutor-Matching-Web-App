@@ -13,6 +13,7 @@ public class UserCreateRequest {
     private String name;
 
     @Email
+    @NotBlank
     private String email;
 
     @Size(min = 6)
