@@ -1,0 +1,9 @@
+<div *ngIf="message" style="margin-bottom: 1em; color: darkgreen;">{{ message }}</div>
+
+<form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+  <input name="name" [(ngModel)]="model.name" required placeholder="Imię" />
+  <input name="email" [(ngModel)]="model.email" required type="email" placeholder="Email" />
+  <input name="password" [(ngModel)]="model.password" required type="password" placeholder="Hasło" />
+  <input name="role" [(ngModel)]="model.role" required placeholder="Rola (STUDENT/TUTOR)" />
+  <button type="submit">Zarejestruj</button>
+</form>
